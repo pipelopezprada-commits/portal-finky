@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Comité de Avance</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #0f2a44, #1c3d5a, #e65c1c);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  color: white;
+}
+
+.card {
+  background: rgba(255,255,255,0.08);
+  padding: 40px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+}
+
+button {
+  padding: 12px;
+  background: #e65c1c;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.dashboard {
+  display: none;
+  text-align: center;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card" id="login">
+  <h1>Comité de Avance</h1>
+  <h2>Proyecto Finky</h2>
+
+  <input type="text" id="user" placeholder="Usuario">
+  <input type="password" id="pass" placeholder="Contraseña">
+
+  <button onclick="login()">Ingresar</button>
+</div>
+
+<div class="dashboard" id="dashboard">
+  <h1>Resumen Ejecutivo</h1>
+  <a href="https://sites.google.com/view/comitedeavance/resumen-ejecutivo" target="_blank">
+    Acceder al informe
+  </a>
+</div>
+
+<script>
+function login() {
+  const user = document.getElementById("user").value;
+  const pass = document.getElementById("pass").value;
+
+  if(user === "Finky" && pass === "Consultandes2026") {
+    document.getElementById("login").style.display = "none";
+    document.getElementById("dashboard").style.display = "block";
+  } else {
+    alert("Credenciales incorrectas");
+  }
+}
+</script>
+
+</body>
+</html>
