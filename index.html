@@ -2,67 +2,163 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Comité de Avance</title>
+<title>Portal Finky</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
-body {
+* {
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
   font-family: 'Inter', sans-serif;
-  background: linear-gradient(135deg, #0f2a44, #1c3d5a, #e65c1c);
+}
+
+body {
+  height: 100vh;
+  background: linear-gradient(270deg, #0f2a44, #1c3d5a, #e65c1c);
+  background-size: 600% 600%;
+  animation: gradient 12s ease infinite;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  color: white;
+}
+
+@keyframes gradient {
+  0% { background-position: 0% 50%;}
+  50% { background-position: 100% 50%;}
+  100% { background-position: 0% 50%;}
+}
+
+.container {
+  width: 100%;
+  max-width: 420px;
 }
 
 .card {
+  backdrop-filter: blur(25px);
   background: rgba(255,255,255,0.08);
-  padding: 40px;
-  border-radius: 12px;
+  padding: 45px;
+  border-radius: 20px;
   text-align: center;
+  color: white;
+  box-shadow: 0 25px 80px rgba(0,0,0,0.4);
+  animation: fadeIn 0.8s ease;
+  transition: 0.4s;
+}
+
+.card.hide {
+  animation: fadeOut 0.5s forwards;
+}
+
+@keyframes fadeIn {
+  from {opacity:0; transform: translateY(40px) scale(0.95);}
+  to {opacity:1; transform: translateY(0) scale(1);}
+}
+
+@keyframes fadeOut {
+  to {opacity:0; transform: scale(0.9);}
+}
+
+h1 {
+  font-size: 26px;
+}
+
+h2 {
+  font-weight: 300;
+  margin-bottom: 25px;
+  opacity: 0.8;
 }
 
 input {
   width: 100%;
-  padding: 12px;
+  padding: 14px;
   margin: 10px 0;
+  border-radius: 8px;
+  border: none;
 }
 
 button {
-  padding: 12px;
+  width: 100%;
+  padding: 14px;
+  margin-top: 15px;
   background: #e65c1c;
   border: none;
+  border-radius: 8px;
   color: white;
+  font-weight: 600;
   cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px rgba(230,92,28,0.7);
 }
 
 .dashboard {
   display: none;
+  animation: fadeIn 1s ease;
+}
+
+.dashboard-card {
+  backdrop-filter: blur(25px);
+  background: rgba(255,255,255,0.08);
+  padding: 50px;
+  border-radius: 20px;
   text-align: center;
+  color: white;
+  box-shadow: 0 25px 80px rgba(0,0,0,0.4);
+}
+
+.link-btn {
+  margin-top: 30px;
+  display: inline-block;
+  padding: 15px 25px;
+  background: #e65c1c;
+  border-radius: 10px;
+  text-decoration: none;
+  color: white;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.link-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 25px rgba(230,92,28,0.7);
 }
 </style>
 </head>
 
 <body>
 
-<div class="card" id="login">
-  <h1>Comité de Avance</h1>
-  <h2>Proyecto Finky</h2>
+<div class="container">
 
-  <input type="text" id="user" placeholder="Usuario">
-  <input type="password" id="pass" placeholder="Contraseña">
+  <!-- LOGIN -->
+  <div class="card" id="login">
+    <h1>Comité de Avance</h1>
+    <h2>Proyecto Finky</h2>
 
-  <button onclick="login()">Ingresar</button>
-</div>
+    <input type="text" id="user" placeholder="Usuario">
+    <input type="password" id="pass" placeholder="Contraseña">
 
-<div class="dashboard" id="dashboard">
-  <h1>Resumen Ejecutivo</h1>
-  <a href="https://sites.google.com/view/comitedeavance/resumen-ejecutivo" target="_blank">
-    Acceder al informe
-  </a>
+    <button onclick="login()">Ingresar</button>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div class="dashboard" id="dashboard">
+    <div class="dashboard-card">
+      <h1>Resumen Ejecutivo</h1>
+      <p style="opacity:0.7; margin-top:10px;">Proyecto de escalamiento estratégico</p>
+
+      <a class="link-btn" 
+         href="https://sites.google.com/view/comitedeavance/resumen-ejecutivo" 
+         target="_blank">
+         Acceder al informe
+      </a>
+    </div>
+  </div>
+
 </div>
 
 <script>
@@ -71,8 +167,15 @@ function login() {
   const pass = document.getElementById("pass").value;
 
   if(user === "Finky" && pass === "Consultandes2026") {
-    document.getElementById("login").style.display = "none";
-    document.getElementById("dashboard").style.display = "block";
+
+    const loginCard = document.getElementById("login");
+    loginCard.classList.add("hide");
+
+    setTimeout(() => {
+      loginCard.style.display = "none";
+      document.getElementById("dashboard").style.display = "block";
+    }, 500);
+
   } else {
     alert("Credenciales incorrectas");
   }
